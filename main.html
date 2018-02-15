@@ -4,16 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Remember The Milk</title>
-    <script src="assets/js/main.js"></script>
     <link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
-    <form class="form" onsubmit="getForm()">
-        <h1 class="form-title">Remember The Milk</h1>
-        <input type="text" name="title" value="" placeholder="Title" class="form-item">
-        <input type="text" name="location" value="" placeholder="Location" class="form-item">
-        <input type="text" name="url" value="" placeholder="URL" class="form-item">
-        <button type="submit" class="form-button">Add new link</button>
-    </form>
+    <div id="app">
+        <h1 class="app-title">Remember The Milk</h1>
+        <form id="form" class="form" onsubmit="getForm()">
+            <input type="text" name="title" value="" placeholder="Title" class="form-item">
+            <input type="text" name="location" value="" placeholder="Location" class="form-item">
+            <input type="text" name="url" value="" placeholder="URL" class="form-item">
+            <button type="submit" class="form-button">Add new link</button>
+        </form>
+    </div>
+    <script src="assets/js/languages.js"></script>
+    <script src="assets/js/main.js"></script>
 </body>
 </html>
