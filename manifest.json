@@ -1,0 +1,23 @@
+
+{
+    "name": "Remember The Milk",
+    "version": "1.0",
+    "manifest_version": 2,
+    "browser_action": {
+        "default_popup": "main.html",
+        "default_icon": "assets/img/favicon.png"
+    },
+    "commands": {
+        "_execute_browser_action": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+F",
+                "mac": "MacCtrl+Shift+F"
+            },
+            "description": "main.html"
+        }
+    },
+    "permissions": [
+        "tabs"
+    ]
+
+}
