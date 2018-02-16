@@ -1,74 +1,37 @@
 (function() {
     'use strict';
 
-    fillForm();
-    function fillForm(){
-        inputList(
-            function(inputs){
-                inputs.forEach(
-                    function(el){
-                        if(el.name == 'location') return;
-                        setAttr(el, function(error){
-                            console.log(error);
-                        });
-                    }
-                );
-            }
-        );
-    }
-
-    /**
-     * @callback callback
-     * @param {boolean} error
-     * @param {tab} tab
-     */
-    function currentTab(callback) {
-        var hasTab = false;
-        debugger
+    var currentTab = function(callback){
         chrome.tabs.query({active: true, lastFocusedWindow: true}, function(tab){
-            hasTab = true;
-            callback(false, tab[0]);
+            console.log('tentando');
+            return callback({error: false, content: tab[0]});
         });
-        if(!hasTab) callback(true, null);
     }
 
-    /**
-     *
-     * @callback
-     *
-     */
-    function inputList(callback) {
-        callback(document.querySelectorAll('input'));
+    var inputList = function(){
+        return document.querySelectorAll('input');
     }
 
-    function setAttr(element, callback) {
-        getAttrByTab(
-            element,
-            function(error, attr){
-                if(error) {
-                    callback(error);
-                } else {
-                    element.value = attr;
-                    callback(false);
-                }
+    var setAttr = function(element, attr){
+        var val = getAttrByTab(attr);
+        if(val.error) return val;
 
-            }
-        );
+        return element.value = attr.content;
     }
 
-    function getAttrByTab(attr, callback){
-        currentTab(
-            function(error, tab){
-                if(error) {
-                    return callback(error, null);
-                }
-                debugger
-                if(!tab[attr]){
-                    callback(true, null);
-                } else {
-                    callback(false, tab[attr]);
-                }
-            }
-        )
+    var getAttrByTab = function(attr){
+        currentTab(function(error, content){
+            if(error) return {error: true};
+
+            return {error: false, content: content};
+        });
     }
+
+    var fillForm = function(){
+        inputList().forEach(function(el){
+            setAttr(el, el.name);
+        });
+    }
+
+    fillForm();
 })();
