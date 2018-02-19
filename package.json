@@ -1,0 +1,23 @@
+{
+  "name": "extension-chrome",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://rgosch@github.com/rgosch/chrome-extension-remember-the-milk.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rgosch/chrome-extension-remember-the-milk/issues"
+  },
+  "homepage": "https://github.com/rgosch/chrome-extension-remember-the-milk#readme",
+  "dependencies": {
+    "chrome-promise": "^2.1.2"
+  }
+}

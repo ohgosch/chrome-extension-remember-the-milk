@@ -1,29 +1,50 @@
-(function() {
+window.onload = function() {
     'use strict';
 
-    var currentTab = function(callback){
-        chrome.tabs.query({active: true, lastFocusedWindow: true}, function(tab){
-            console.log('tentando');
-            return callback({error: false, content: tab[0]});
-        });
-    }
+    const chromep = new ChromePromise();
+
+    var currentTab = new Promise(
+        function(res, rej){
+            chromep.tabs.query({active: true, lastFocusedWindow: true}).then(
+                function(tab){
+                    console.log(tab);
+                    res(tab[0]);
+                }
+            );
+        }
+    );
 
     var inputList = function(){
         return document.querySelectorAll('input');
     }
 
     var setAttr = function(element, attr){
-        var val = getAttrByTab(attr);
-        if(val.error) return val;
-
-        return element.value = attr.content;
+        getAttrByTab(attr).then(
+            function(res){
+                element.value = res;
+            }
+        );
     }
 
     var getAttrByTab = function(attr){
-        currentTab(function(error, content){
-            if(error) return {error: true};
-
-            return {error: false, content: content};
+        return new Promise(function(res, rej){
+            currentTab.then(
+                function(resC, rejC){
+                    if(resC[attr]) return res(resC[attr]);
+                    switch(attr){
+                        case 'location':
+                            chromep.tabs.detectLanguage(resC.id).then(
+                                function(resL){
+                                    return res(window.languages[resL]);
+                                }
+                            );
+                            // getAttrByTab()
+                            // console.log(.en);
+                            break;
+                    }
+                    console.log(attr);
+                }
+            );
         });
     }
 
@@ -34,4 +55,4 @@
     }
 
     fillForm();
-})();
+};
