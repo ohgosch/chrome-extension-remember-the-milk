@@ -7,7 +7,6 @@ window.onload = function() {
         function(res, rej){
             chromep.tabs.query({active: true, lastFocusedWindow: true}).then(
                 function(tab){
-                    console.log(tab);
                     res(tab[0]);
                 }
             );
@@ -38,11 +37,8 @@ window.onload = function() {
                                     return res(window.languages[resL]);
                                 }
                             );
-                            // getAttrByTab()
-                            // console.log(.en);
                             break;
                     }
-                    console.log(attr);
                 }
             );
         });
