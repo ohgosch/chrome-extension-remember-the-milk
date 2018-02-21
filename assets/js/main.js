@@ -29,14 +29,16 @@ window.onload = function() {
         return new Promise(function(res, rej){
             currentTab.then(
                 function(resC, rejC){
+                    if(!resC) return;
                     if(resC[attr]) return res(resC[attr]);
                     switch(attr){
                         case 'location':
                             chromep.tabs.detectLanguage(resC.id).then(
                                 function(resL){
-                                    return res(window.languages[resL]);
-                                }
-                            );
+                                        if(resL != 'und')
+                                            return res(window.languages[resL]);
+                                    }
+                                );
                             break;
                     }
                 }
